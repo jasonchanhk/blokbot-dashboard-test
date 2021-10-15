@@ -1,0 +1,16 @@
+.brandname{
+    font-weight: bold;
+    font-size: 36px;
+}
+.pro-sidebar{
+    flex: 1;
+    
+}
+
+.header{
+    padding: 10px
+}
+
+.footer{
+    padding: 10px
+}

@@ -1,47 +1,42 @@
-import {useEffect, useState} from "react";
-import DashboardDataService from "./services/dashboard";
-import Sidebar from './component.sidebar/sidebar.js';
-import Main from './component.main/main.js'
+import { useState } from "react";
+import Dashboard from './components/dashboard';
+import Sidebar from './components/sidebar';
+import Topbar from "./components/topbar";
+import Coin from './components/coin';
+import CoinDetail from './components/coinDetail';
+import Home from './components/home';
+import News from './components/news';
+import Footer from './components/footer';
+import ScrollToTop from "./components/scrollToTop";
+import { Switch, Route, Redirect } from "react-router-dom"
 import './App.css';
 
 function App() {
 
-  const [ATP, setATP] = useState([]);
-  const [TFCM, setTFCM] =useState([]);
-  const [LWP, setLWP] =useState([]);
-  const [TFPM, setTFPM] =useState([]);
-  const [AT, setAT] =useState([]);
   const [menuCollapse, setMenuCollapse] = useState(false)
 
     const menuIconClick = () => {
         menuCollapse ? setMenuCollapse(false) : setMenuCollapse(true);
-    };
+        console.log(menuCollapse)
+      };
 
-  useEffect(() => {
-      const getInfo = async () => {
-          await DashboardDataService.getAll()
-          .then(response => {
-              console.log(response.data);
-              setAT(response.data.dashboardinfo[0]);
-              setATP(response.data.dashboardinfo[1]);
-              setTFCM(response.data.dashboardinfo[2]);
-              setTFPM(response.data.dashboardinfo[3]);
-              setLWP(response.data.dashboardinfo[4]);
-          })
-          .catch(e => {
-              console.log(e);
-          })
-      }
-      getInfo()
-  },[])
-
-  return (
-    <div className="App">
-        <div className="contain">
-          <Sidebar menuCollapse={menuCollapse}/>
-          <Main ATP={ATP} TFCM={TFCM} LWP={LWP} TFPM={TFPM} AT={AT} menuIconClick={menuIconClick}/>
-        </div>
-    </div>
+  return (    
+      <div className="App">
+          <div className="contain">
+            <ScrollToTop />
+            <Sidebar menuCollapse={menuCollapse}/>
+            <Topbar menuIconClick={menuIconClick} menuCollapse={menuCollapse}/>
+            <Switch>
+                  <Route path="/home"  component={() => <Home menuCollapse={menuCollapse} />} />
+                  <Route path="/dashboard" component={() => <Dashboard menuCollapse={menuCollapse}/>} />
+                  <Route exact path="/coin"  component={() => <Coin menuCollapse={menuCollapse} />} />
+                  <Route path="/news"  component={() => <News menuCollapse={menuCollapse} />} />
+                  <Route path="/coin/:coinId" component={() => <CoinDetail menuCollapse={menuCollapse} />} />
+                  <Redirect to="/home" />
+            </Switch>
+            <Footer menuCollapse={menuCollapse} />            
+          </div>
+      </div>
   );
 }
 

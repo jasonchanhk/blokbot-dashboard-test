@@ -1,0 +1,37 @@
+.brandname{
+    font-weight: bold;
+    font-size: 36px;
+}
+.pro-sidebar{
+    height: 100%;
+    z-index: 1;  
+    top: 0;
+    left: 0;  
+    overflow-x: hidden;
+}
+
+
+.menu{
+    color: white;
+}
+
+.pro-sidebar-header{    
+    background-color: #201E50;
+}
+
+.pro-sidebar-content{
+    color: white;
+    background-color: #201E50;
+}
+.pro-sidebar-content:hover{
+    color: white
+}
+
+.pro-menu-item:hover{
+    background-color: #292358;
+}
+
+.pro-sidebar-footer{
+    
+    background-color: #201E50;
+}
